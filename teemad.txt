@@ -1,0 +1,48 @@
+1. Endast
+
+2. Lühitutvustus
+a) Varasem programmeerimise kogemus
+b) Pikaajaline IT-s
+c) Mis on soovid vahetult pärast koolituse lõppu
+
+3. Koolitusest
+70ak/h - 4ak/h (45min) - 3 astronoomilist   13.00-16.15    14.30-14.45 
+õppevideod
+iseseisvad tööd - Wordi dokumendina
+
+veebipood - eesti keelsete componentidega, muutujatega, funktsioonidega
+webshop - inglise keelsete
+
+4. Tehnoloogiatest
+
+JavaScript, jQuery AJAX
+React, Angular, Vue, ......
+
+Backend - sisselogimine, andmebaasis andmete hoidmine
+
+
+5. Installime
+CLI
+command prompt - käsuviip
+command line - käsurida
+command line interface - npm / git
+
+
+6. Kood üles
+github.com/ kasutaja olemas
+
+git - koodi üleslaadimiseks
+
+Github - koodihoidla pilves
+Gitlab - koodihoidla pilves
+Bitbucket - koodihoidla pilves
+
+
+
+7. Kirjutame koodi
+
+cd - change directory
+cd koolitus
+koolitus
+
+
