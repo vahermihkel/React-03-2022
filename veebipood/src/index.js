@@ -13,6 +13,10 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
+// 1. npm install react-router-dom; <-- võimaldab importida react-router-dom vajalikku routimiseks
+// 2. import BrowserRouter
+// 3. katta App component Browserrouteriga
+
 // kommentaar
 // ctrl + ä kui aktiveerin koodi
 
