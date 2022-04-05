@@ -31,6 +31,7 @@ function Ostukorv() {
     console.log(index);
     // ["element nr1","element nr2",4,5,6].splice(0,1);  -> ["element nr2",4,5,6].splice(0,1);
     ostukorv.splice(index,1);
+            // ostukorv.remove(toode) <--- sellist asja ei ole
     console.log(ostukorv);
     muudaOstukorvi(ostukorv.slice()); // uuenda HTMLi
     localStorage.setItem("ostukorviTooted", JSON.stringify(ostukorv));
@@ -50,6 +51,7 @@ function Ostukorv() {
   function tyhjenda() {
     muudaOstukorvi([]); //HTML muuta
     localStorage.setItem("ostukorviTooted", JSON.stringify([])); // localStorage-t uuendada
+    // localStorage.clear();
   }
 
   function arvutaOstukorviKogusumma() {

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 function Avaleht() {
   // string - sõnalised ---- "12"
@@ -8,16 +9,23 @@ function Avaleht() {
   // const [number, muudaNumber] = useState(12);
   // const [kahendV22rtus, muudaKahendV22rtus] = useState(true);
   // const [s6na4, muudaS6na4] = useState("23");
-  const [tooted, uuendaTooted] = useState(
-      [
+  const [tooted, uuendaTooted] = useState(saaTooted());
+
+  function saaTooted() {
+    const tootedLS = localStorage.getItem("tooted");
+
+    if (tootedLS !== null) {  // if (tootedLS)
+      return JSON.parse(tootedLS);
+    } else {
+      return [
         {nimi: "Coca", hind: 1, aktiivne: true},
         {nimi: "Fanta", hind: 3, aktiivne: false}, 
         {nimi: "Sprite", hind: 2, aktiivne: true},
         {nimi: "Vichy", hind: 5, aktiivne: true},
         {nimi: "Vitamin well", hind: 8, aktiivne: true}
-      ]
-    );
-
+      ];
+    }
+  }
   // function uuendaK6ik() {
   //   muudaS6na("Muudetud väärtus");
   //   muudaNumber(33);
@@ -41,7 +49,7 @@ function Avaleht() {
     //1. let ostukorviTooted = null;
     //2. let ostukorviTooted = "[{nimi: "C", hind: 3, aktiivne: true}]";
     let ostukorviTooted = localStorage.getItem("ostukorviTooted");
-    if (ostukorviTooted !== null) {
+    if (ostukorviTooted !== null) { // null - tühjus  !== - ei võrdu
       // 2. ostukorvitooted = [{nimi: "C", hind: 3, aktiivne: true}]
       ostukorviTooted = JSON.parse(ostukorviTooted);
     } else {
@@ -56,14 +64,19 @@ function Avaleht() {
               // 1. key="ostukorviTooted"     value="[{nimi: "C", hind: 3, aktiivne: true}]"
               // 2. key="ostukorviTooted"     value="[{nimi: "C", hind: 3, aktiivne: true},{nimi: "C", hind: 3, aktiivne: true}]"
     localStorage.setItem("ostukorviTooted", JSON.stringify(ostukorviTooted));
+
+    // JSON.stringify - ainult sellepärast et brauseri storage nõuab String kuju
+    // JSON.parse - ainult sellepärast et brauseri storage annab meile String kuju
   }
 
   return (
   <div>
     {tooted.map(element => 
       <div>
-        <div>{element.nimi}</div>
-        <div>{element.hind}</div>
+        <Link to={"/toode/" + element.nimi.replaceAll(" ", "-").toLowerCase()}>
+          <div>{element.nimi}</div>
+          <div>{element.hind}</div>
+        </Link>
         <button onClick={() => lisaOstukorvi(element)}>Lisa ostukorvi</button>
       </div>)}
   </div>)
