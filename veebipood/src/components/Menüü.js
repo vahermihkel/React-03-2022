@@ -1,6 +1,16 @@
 import { Link } from "react-router-dom";
 
 function Menüü() {
+
+  function muudaKeelt(lang) {
+    const vanaKeel = localStorage.getItem("language");
+
+    console.log("enne oli: " + vanaKeel + ", uus keel on: " + lang);
+
+    // parem klõps -> inspect -> application
+    localStorage.setItem("language", lang);
+  }
+
   return (
   <div>
     {/* URLi muutmine käib ainult <Link to=""> abil 
@@ -16,6 +26,8 @@ function Menüü() {
     <Link to="/admin">
       <button>Admin vaatesse</button>
     </Link>
+    <button onClick={() => muudaKeelt('et')}>EE</button>
+    <button onClick={() => muudaKeelt('ru')}>RU</button>
   </div>)
 }
 

@@ -3,8 +3,22 @@ import { useState } from "react";
 function Ostukorv() {
   // ["element nr1","element nr2",4,5,6]
   // 1. Muutujad
-  const [ostukorv, muudaOstukorvi] = useState(["element nr1","element nr2",4,5,6]);
+  
+  // useState - vasakpoolset kasutan HTML-s (ostukorv)
+  // parempoolse abil muudan vasakpoolset - kui toimub muutus, siis uueneb ka HTML
+  // useState - on vaja importida, Reacti väljamõeldud kood, mis on node_modules kaustas
+  // useState() - sulgude sees on vasakpoolse muutuja algväärtus ehk mida näidatakse sel hetkel
+  //            kui lehele tullakse
+  const [ostukorv, muudaOstukorvi] = useState(saaOstukorviTooted());
 
+  function saaOstukorviTooted() {
+                    // "[{..},{..},{..}]" --> JSON.parse() -->  [{..},{..},{..}]
+    if (localStorage.getItem("ostukorviTooted") !== null) {
+      return JSON.parse(localStorage.getItem("ostukorviTooted"));
+    } else {
+      return [];
+    }
+  }
                 // "element nr1"
   function kustutaToode(toode) {
 // js how to delete element from array
@@ -19,6 +33,7 @@ function Ostukorv() {
     ostukorv.splice(index,1);
     console.log(ostukorv);
     muudaOstukorvi(ostukorv.slice()); // uuenda HTMLi
+    localStorage.setItem("ostukorviTooted", JSON.stringify(ostukorv));
   }
 
                     // 4
@@ -29,16 +44,32 @@ function Ostukorv() {
     ostukorv.push(toode);
     muudaOstukorvi(ostukorv.slice()); // uuendab HTMLi (useState)
     console.log(ostukorv);
+    localStorage.setItem("ostukorviTooted", JSON.stringify(ostukorv));
   }
 
-  // 2. HTML
+  function tyhjenda() {
+    muudaOstukorvi([]); //HTML muuta
+    localStorage.setItem("ostukorviTooted", JSON.stringify([])); // localStorage-t uuendada
+  }
+
+  function arvutaOstukorviKogusumma() {
+    let koguSumma = 0;
+              // [{nimi: "Coca", hind: 2}, {nimi: "Fanta", hind: 3}]
+              // .forEach({nimi: "Coca", hind: 2} =>  2  = 0 + 2 )
+              // .forEach({nimi: "Fanta", hind: 3} => 5   = 2 + 3 )
+    ostukorv.forEach(element => koguSumma = koguSumma + element.hind);
+    return koguSumma;
+  }
+
+  // 2. HTML --- märge, selgitan "let", "const", function () <--- muutujate loogika üle
   return(
     <div>
       {ostukorv.length > 0 && 
       <div>
         <div>Kokku on {ostukorv.length} toodet ostukorvis</div>
-        <button onClick={() => muudaOstukorvi([])}>Tühjenda</button>
+        <button onClick={() => tyhjenda()}>Tühjenda</button>
       </div>}
+      <div>
       {ostukorv.length === 0 && <div>Ostukorv on tühi</div>}
       {/* ["element nr1","element nr2",4,5,6].map("element nr1" => <div>
           <div>Nimi: element nr1</div>
@@ -61,15 +92,18 @@ function Ostukorv() {
           <button onClick={() => kustutaToode(4)}>X</button>
           <button onClick={() => lisaToode(4)}>Lisa</button>
         </div>) */}
+        </div>
       { ostukorv.map(element => 
         <div>
-          <div>Nimi: {element}</div>
-          <div>Hind: 3</div>
+          {/* {nimi: "COca cola", price: 2, aktiivne: true} */}
+          <div>Nimi: {element.nimi}</div>
+          <div>Hind: {element.hind}</div>
           <div>Kategooria: karastusjoogid</div>
           <button onClick={() => kustutaToode(element)}>X</button>
           <button onClick={() => lisaToode(element)}>Lisa</button>
         </div>
       ) }
+      <div>KOKKU: {arvutaOstukorviKogusumma()} €</div>
     </div>
     )
 }
