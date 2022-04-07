@@ -4,6 +4,7 @@ function VaataToode() {
   // "vitamin-well"
   // console.log(window.location.href.split("toode/")[1])
 
+  // App.js -> localhost:3000/toode/:toodeId
   const { toodeId } = useParams();
   console.log(toodeId);
 

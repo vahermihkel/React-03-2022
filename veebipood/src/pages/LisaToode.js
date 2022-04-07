@@ -18,7 +18,7 @@ import { Link } from "react-router-dom";
 // hüpikaknad
 
 function LisaToode() {
-  const nimiRef = useRef();
+  const nimiRef = useRef(); // kasutan vaid HTML-s
   const hindRef = useRef();
   const aktiivneRef = useRef();
 
@@ -35,7 +35,7 @@ function LisaToode() {
     console.log(toode);
     let tooted = localStorage.getItem("tooted"); // key    |    value
     if (tooted !== null) {
-      tooted = JSON.parse(tooted);
+      tooted = JSON.parse(tooted); // []
     } else {
       tooted = [];
     }

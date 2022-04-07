@@ -7,6 +7,7 @@ import Ostukorv from './pages/Ostukorv';
 import LisaToode from './pages/LisaToode';
 import HaldaTooteid from './pages/HaldaTooteid';
 import VaataToode from './pages/VaataToode';
+import MuudaToode from './pages/MuudaToode';
 
 // cmd -> npm start järgselt
 // brauseris -> parem klõps -> inspect -> console
@@ -24,6 +25,7 @@ function App() {
         <Route path='/admin' exact element={ <AdminHome /> } />
         <Route path='/admin/lisa-toode' exact element={ <LisaToode /> } />
         <Route path='/admin/halda-tooteid' exact element={ <HaldaTooteid /> } />
+        <Route path='/admin/muuda/:toodeName' exact element={ <MuudaToode /> } />
       </Routes>
     </div>
   );
