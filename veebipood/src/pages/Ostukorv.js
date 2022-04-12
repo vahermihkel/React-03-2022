@@ -81,8 +81,8 @@ function Ostukorv() {
         "Content-Type": "application/json",
         "Authorization": "Basic OTJkZGNmYWI5NmUzNGE1Zjo4Y2QxOWU5OWU5YzJjMjA4ZWU1NjNhYmY3ZDBlNGRhZA=="
       }
-    }).then(response => response.json())
-    .then(body => window.location.href = body.payment_link);
+    }).then(tagastus => tagastus.json())
+    .then(tagastuseBody => window.location.href = tagastuseBody.payment_link);
   }
 
   // 2. HTML --- märge, selgitan "let", "const", function () <--- muutujate loogika üle
