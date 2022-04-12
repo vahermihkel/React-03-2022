@@ -1,5 +1,5 @@
-import { useRef } from "react";
-import { useParams } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom"; // useHistory()    .push()
 
 function MuudaToode() {
   // localhost:3000/admin/muuda/:toodeName
@@ -9,27 +9,48 @@ function MuudaToode() {
   const hindRef = useRef();
   const aktiivneRef = useRef();
   const { toodeName } = useParams();
+  const [tooted, uuendaTooted] = useState([]); // kui on andmebaasipäring, siis ta jõuab alati
+  // enne HTMLi valmis teha ja alles siis on andmebaasipäring valmis
+  const [toode, uuendaToode] = useState({}); // alguses näidatakse HTML-s {} tühja objekti
+  const url = "https://react-03-2022-default-rtdb.europe-west1.firebasedatabase.app/tooted.json";
+  const navigate = useNavigate();
 
-  let tooted = localStorage.getItem("tooted");
-  let toode = {};
-  if (tooted) {// if (tooted !== null)
-    tooted = JSON.parse(tooted);
-    toode = tooted.find(element => 
-      element.nimi.replace(" ", "-").toLowerCase() === toodeName);
-  }
-
-  console.log(toodeName);
+  useEffect(() => { 
+    fetch(url)
+      .then(tagastus => tagastus.json()) 
+      .then(tagastuseBody => {  
+        const newArray = []; 
+        for (const voti in tagastuseBody) {
+          newArray.push(tagastuseBody[voti]);
+        }
+        uuendaTooted(newArray); 
+        const toodeLeitud = newArray.find(element => 
+          element.nimi.replace(" ", "-").toLowerCase() === toodeName);
+        uuendaToode(toodeLeitud); // uuendab HTMLi, enam ei ole tühi objekt
+      });
+  },[]);
 
   function uuendatudToode() {
     const j2rjekorraNumber = tooted.indexOf(toode);
-
     tooted[j2rjekorraNumber] = {
       nimi: nimiRef.current.value,
       hind: Number(hindRef.current.value),
       aktiivne: aktiivneRef.current.checked
     };
-
-    localStorage.setItem("tooted", JSON.stringify(tooted));
+    // localStorage.setItem("tooted", JSON.stringify(tooted));
+    fetch(url,
+      {
+        method: "PUT",
+        body: JSON.stringify(tooted),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }
+    ).then(tagastus => {
+      if (tagastus.status === 200) {
+        navigate("/admin/halda-tooteid");
+      }
+    })
   }
 
   return (<div>

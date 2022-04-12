@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 function Avaleht() {
@@ -9,23 +9,36 @@ function Avaleht() {
   // const [number, muudaNumber] = useState(12);
   // const [kahendV22rtus, muudaKahendV22rtus] = useState(true);
   // const [s6na4, muudaS6na4] = useState("23");
-  const [tooted, uuendaTooted] = useState(saaTooted());
+  const [tooted, uuendaTooted] = useState([]);
+  const url = "https://react-03-2022-default-rtdb.europe-west1.firebasedatabase.app/tooted.json";
 
-  function saaTooted() {
-    const tootedLS = localStorage.getItem("tooted");
+  useEffect(() => {
+    fetch(url) 
+      .then(tagastus => tagastus.json()) 
+      .then(tagastuseBody => {
+        console.log(tagastuseBody);
+        const newArray = [];
+        for (const voti in tagastuseBody) {
+          newArray.push(tagastuseBody[voti]);
+        }
+        uuendaTooted(newArray);
+      });
+  },[]);
+  // function saaTooted() {
+  //   const tootedLS = localStorage.getItem("tooted");
 
-    if (tootedLS !== null) {  // if (tootedLS)
-      return JSON.parse(tootedLS);
-    } else {
-      return [
-        {nimi: "Coca", hind: 1, aktiivne: true},
-        {nimi: "Fanta", hind: 3, aktiivne: false}, 
-        {nimi: "Sprite", hind: 2, aktiivne: true},
-        {nimi: "Vichy", hind: 5, aktiivne: true},
-        {nimi: "Vitamin well", hind: 8, aktiivne: true}
-      ];
-    }
-  }
+  //   if (tootedLS !== null) {  // if (tootedLS)
+  //     return JSON.parse(tootedLS);
+  //   } else {
+  //     return [
+  //       {nimi: "Coca", hind: 1, aktiivne: true},
+  //       {nimi: "Fanta", hind: 3, aktiivne: false}, 
+  //       {nimi: "Sprite", hind: 2, aktiivne: true},
+  //       {nimi: "Vichy", hind: 5, aktiivne: true},
+  //       {nimi: "Vitamin well", hind: 8, aktiivne: true}
+  //     ];
+  //   }
+  // }
   // function uuendaK6ik() {
   //   muudaS6na("Muudetud väärtus");
   //   muudaNumber(33);

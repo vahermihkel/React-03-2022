@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 // localStorage <- saadan tooted LisaToode vajutusel, võtan Avaleht minnes
 // üksiku toote vaatamine <- võtan localStorage-st, otsin õige toote üles
@@ -21,6 +21,8 @@ function LisaToode() {
   const nimiRef = useRef(); // kasutan vaid HTML-s
   const hindRef = useRef();
   const aktiivneRef = useRef();
+  const navigate = useNavigate();
+  const url = "https://react-03-2022-default-rtdb.europe-west1.firebasedatabase.app/tooted.json";
 
   function uusToode() {
     // document.getElementById("nimiId").value - otsiks tervet HTMLi ehk kõik lehed läbi
@@ -33,14 +35,27 @@ function LisaToode() {
       aktiivne: aktiivneRef.current.checked
     }
     console.log(toode);
-    let tooted = localStorage.getItem("tooted"); // key    |    value
-    if (tooted !== null) {
-      tooted = JSON.parse(tooted); // []
-    } else {
-      tooted = [];
-    }
-    tooted.push(toode);
-    localStorage.setItem("tooted", JSON.stringify(tooted));
+    // let tooted = localStorage.getItem("tooted"); // key    |    value
+    // if (tooted !== null) {
+    //   tooted = JSON.parse(tooted); // []
+    // } else {
+    //   tooted = [];
+    // }
+    // tooted.push(toode);
+    // localStorage.setItem("tooted", JSON.stringify(tooted));
+    fetch(url,
+      {
+        method: "POST",
+        body: JSON.stringify(toode),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }
+    ).then(tagastus => {
+      if (tagastus.status === 200) {
+        navigate("/admin/halda-tooteid");
+      }
+    })
   }
 
   return (
