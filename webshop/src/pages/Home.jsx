@@ -46,11 +46,36 @@ function Home() {
     });
   }
 
+  function onSortAZ() {
+    products.sort( (a,b) => a.name.localeCompare(b.name) );
+    setProducts(products.slice());
+  }
+
+  function onSortZA() {
+    products.sort( (a,b) => b.name.localeCompare(a.name) );
+    setProducts(products.slice());
+  }
+
+  function onSortPriceAsc() {
+    products.sort( (a,b) => a.price - b.price );
+    setProducts(products.slice());
+  }
+
+  function onSortPriceDesc() {
+    products.sort( (a,b) => b.price - a.price );
+    setProducts(products.slice()); // uuendab HTML-i (useState() osa)
+            // .slice()  ---> products kutsub välja setProducts, mis uuendab products
+  }
+
   return (
   <div>
+    <button onClick={() => onSortAZ()}>Sorteeri A-Z</button>
+    <button onClick={() => onSortZA()}>Sorteeri Z-A</button>
+    <button onClick={() => onSortPriceAsc()}>Sorteeri hind kasvavalt</button>
+    <button onClick={() => onSortPriceDesc()}>Sorteeri hind kahanevalt</button>
     {products.map(element => 
       <div>
-        <img src={element.imgSrc} alt="" />
+        <img className="product-img" src={element.imgSrc} alt="" />
         <div>{element.name}</div>
         <div>{element.price}</div>
         <button onClick={() => addToCart(element)}>Lisa {element.name} ostukorvi</button>
