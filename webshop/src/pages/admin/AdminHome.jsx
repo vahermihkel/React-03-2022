@@ -9,6 +9,9 @@ function AdminHome() {
     <Link to="/admin/tooted">
       <button className="btn btn-secondary">HALDA TOOTEID</button>
     </Link>
+    <Link to="/admin/kategooriad">
+      <button className="btn btn-secondary">HALDA KATEGOORIAID</button>
+    </Link>
   </div>)
 }
 

@@ -3,9 +3,11 @@ import { ToastContainer, toast } from 'react-toastify';
 
 function Home() {
   const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const url = "https://react-03-22-default-rtdb.europe-west1.firebasedatabase.app/products.json";
 
   useEffect(() => {
+    setIsLoading(true);
     fetch(url).then(response => response.json())
     .then(responseBody => {
       const productsFromDb = [];
@@ -13,7 +15,7 @@ function Home() {
         productsFromDb.push(responseBody[key]);
       }
       setProducts(productsFromDb);
-      console.log(productsFromDb);
+      setIsLoading(false);
     })
   },[]);
 
@@ -72,12 +74,15 @@ function Home() {
     <button onClick={() => onSortAZ()}>Sorteeri A-Z</button>
     <button onClick={() => onSortZA()}>Sorteeri Z-A</button>
     <button onClick={() => onSortPriceAsc()}>Sorteeri hind kasvavalt</button>
-    <button onClick={() => onSortPriceDesc()}>Sorteeri hind kahanevalt</button>
+    <button onClick={() => onSortPriceDesc()}>Sorteeri hind kahanevalt</button><br />
+    { isLoading && <div className="spinner-wrapper">
+      <div className="lds-ripple"><div></div><div></div></div>
+    </div>}
     {products.map(element => 
       <div>
         <img className="product-img" src={element.imgSrc} alt="" />
         <div>{element.name}</div>
-        <div>{element.price}</div>
+        <div>{Number(element.price).toFixed(2)}</div>
         <button onClick={() => addToCart(element)}>Lisa {element.name} ostukorvi</button>
       </div>)}
       <ToastContainer />

@@ -8,6 +8,7 @@ import AdminHome from './pages/admin/AdminHome';
 import AddProduct from './pages/admin/AddProduct';
 import EditProduct from './pages/admin/EditProduct';
 import ViewProducts from './pages/admin/ViewProducts';
+import Categories from './pages/admin/Categories';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="admin/lisa" exact element={ <AddProduct /> } />
           <Route path="admin/muuda/:id" exact element={ <EditProduct /> } />
           <Route path="admin/tooted" exact element={ <ViewProducts /> } />
+          <Route path="admin/kategooriad" exact element={ <Categories /> } />
         </Routes>
       </div>
   );

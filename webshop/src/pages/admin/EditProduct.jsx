@@ -61,7 +61,6 @@ function EditProduct() {
       "headers": {"Content-Type": "application/json"} 
                 // päringu vastuvõtja saaks aru, et JSON kujuna läheb minu
     });
-
   }
 
   return (
