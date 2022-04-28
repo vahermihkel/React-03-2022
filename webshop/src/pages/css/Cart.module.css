@@ -44,6 +44,12 @@
   transition: .5s;
 }
 
+.cartProductButtonDisabled {
+  width: 30px;
+  height: 30px;
+  opacity: 0.3;
+}
+
 .cartProductQuantityControls {
   width: 100px;
   display: flex;
