@@ -9,6 +9,7 @@ import AddProduct from './pages/admin/AddProduct';
 import EditProduct from './pages/admin/EditProduct';
 import ViewProducts from './pages/admin/ViewProducts';
 import Categories from './pages/admin/Categories';
+import Shops from './pages/Shops';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <NavigationBar />
         <Routes>
           <Route path="" exact element={ <Home /> } />
+          <Route path="poed" exact element={ <Shops /> } />
           <Route path="ostukorv" exact element={ <Cart /> } />
           <Route path="toode/:id" exact element={ <SingleProduct /> } />
           <Route path="admin" exact element={ <AdminHome /> } />

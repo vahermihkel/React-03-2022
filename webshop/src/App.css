@@ -53,3 +53,7 @@
 .spinner-wrapper {
   text-align: center;
 }
+
+.map {
+  height: 300px;
+}

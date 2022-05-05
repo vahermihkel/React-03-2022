@@ -17,6 +17,7 @@ function NavigationBar() {
       <Navbar.Brand as={Link} to="/"> <img src="/webshio.png" alt="" /> </Navbar.Brand>
       <Nav className="me-auto">
         <Nav.Link as={Link} to="/admin">{t('nav-admin-button')}</Nav.Link>
+        <Nav.Link as={Link} to="/poed">Poed</Nav.Link>
         <Nav.Link as={Link} to="/ostukorv">{t('nav-cart-button')}</Nav.Link>
         <img onClick={() => changeLanguage("ee")} className="lang" src="/lang/estonia.png" alt="" />
         <img onClick={() => changeLanguage("ru")} className="lang" src="/lang/russia.png" alt="" />

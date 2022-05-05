@@ -1,4 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
+import OmnivaMachines from "../components/OmnivaMachines";
+import Payment from "../components/Payment";
 import cartStyles from "./css/Cart.module.css";
 
 function Cart() {
@@ -42,44 +44,15 @@ function Cart() {
     cartProducts.splice(index,1);
     setCartProducts(cartProducts.slice());
     sessionStorage.setItem("products", JSON.stringify(cartProducts));
-    if (clickedProduct.product.id === "11122333") {
-      deleteSelectedOmniva();
-    }
+    // if (clickedProduct.product.id === "11122333") {
+    //   deleteSelectedOmniva();
+    // }
   }
 
-  const omnivaUrl = "https://www.omniva.ee/locations.json";
-  const [omnivaMachines, setOmnivaMachines] = useState([]); // List dropdowni sees
-  const [selectedOmniva, setSelectedOmniva] = useState(
-    sessionStorage.getItem("selectedOmnivaMachine")); // milline valiti
-  const omnivaRef = useRef(); // dropdowni sisse väärtust kuulav
-
-  useEffect(() => {
-    fetch(omnivaUrl).then(response => response.json())
-      .then(responseBody => setOmnivaMachines(responseBody))
-  },[]);
-
-  function selectOmnivaMachine() {
-    //console.log(omnivaRef.current.value);
-    const omnivaValue = omnivaRef.current.value;
-    const cartOmniva = {
-      product:
-      {
-        id: "11122333",
-        name: "Omniva pakiautomaadi tasu",
-        price: 3.5,
-        imgSrc: "/locker.png"
-      }, 
-      quantity: 1
-    }
-    cartProducts.push(cartOmniva);
-    sessionStorage.setItem("products", JSON.stringify(cartProducts));
-    sessionStorage.setItem("selectedOmnivaMachine", JSON.stringify(omnivaValue));
-    setSelectedOmniva(omnivaValue);
-  }
-
-  function deleteSelectedOmniva() {
-    setSelectedOmniva(null);
-    sessionStorage.removeItem("selectedOmnivaMachine"); 
+  function totalPrice() {
+    let totalSum = 0;
+    cartProducts.forEach(element => totalSum += element.product.price * element.quantity);
+    return totalSum;
   }
 
   return (
@@ -106,21 +79,19 @@ function Cart() {
                       alt="" />}        
         </div>
         <div className={cartStyles.cartProductSum}>{(element.product.price * element.quantity).toFixed(2)} €</div>
-        <img className={cartStyles.cartProductButton} onClick={() => removeFromCart(element)} src="/cart/delete.png" alt="" />
-      </div>) 
+{   element.product.id !== "11122333"   &&  <img className={cartStyles.cartProductButton} onClick={() => removeFromCart(element)} src="/cart/delete.png" alt="" />}      </div>) 
     }
     <br /> 
-
-    { !selectedOmniva && 
-      <select ref={omnivaRef} onChange={() => selectOmnivaMachine()}>
-        { omnivaMachines.map(element => <option value={element.NAME}>{element.NAME}</option>) }
-      </select>}
-    { selectedOmniva && 
-      <div>
-      {selectedOmniva} <button onClick={() => removeFromCart({product: {id: "11122333"}})}>X</button> 
-      </div>}
-
+        {/* vasak pool tähistab võtit millega OmnivaMachines vastu võtab
+        parem pool tähistab väärtust mida selle võtmega saadetakse */}
+    <OmnivaMachines 
+        cartItems={cartProducts} 
+        onDeleteProduct={removeFromCart}
+        onSendCartProducts={setCartProducts} />
     <br />
+
+    <div>KOKKU: {totalPrice()} €</div> 
+    <Payment totalSum={totalPrice()} />
     
   </div>)
 }
@@ -154,11 +125,24 @@ export default Cart;
 
   TEISIPÄEV:
 * Komponentide põhine loogika ( props teema )
+
+  NELJAPÄEV: 05.05
+* PROPS
 * Kaardi peal näitan kõiki poode ( Leaflet )
-* Emailide saatmine Gmailile ja muule
+
+  TEISIPÄEV:  10.05
 * Navbaris iga klikiga ka ostukorvi summa kokkuarvutamine (Subject)
+* Emailide saatmine Gmailile ja muule
+
+  NELJAPÄEV 12.05
 * Sisselogimine / Registeerumine --- Admin
         URL peitmine
-* NotFound, Karusell-galerii
 
+  TEISIPÄEV  17.05
+* Pildid Firebase-i    Firebase Storage (URL)
+* NotFound, Karusell-galerii
+* Kogused?
+
+  24.05    1.5h
+  31.05    1.5h
  */

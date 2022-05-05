@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
+import SortButtons from "../components/SortButtons";
 
 function Home() {
   const [products, setProducts] = useState([]);
@@ -35,6 +36,7 @@ function Home() {
       //[{product:{id: 11}, quantity: 3},{product:{id: 22}, quantity: 1}][1] --->
       //{product:{id: 22}, quantity: 1}.quantity   --->  2  ---> {product:{id: 22}, quantity: 2}
       cartProducts[index].quantity++;
+      //cartProducts[index].quantity = cartProducts[index].quantity + 1;
       // cartProducts[index].quantity += 2;
       // cartProducts[index].quantity = cartProducts[index].quantity / 2 + 1;
     } else {
@@ -48,33 +50,9 @@ function Home() {
     });
   }
 
-  function onSortAZ() {
-    products.sort( (a,b) => a.name.localeCompare(b.name) );
-    setProducts(products.slice());
-  }
-
-  function onSortZA() {
-    products.sort( (a,b) => b.name.localeCompare(a.name) );
-    setProducts(products.slice());
-  }
-
-  function onSortPriceAsc() {
-    products.sort( (a,b) => a.price - b.price );
-    setProducts(products.slice());
-  }
-
-  function onSortPriceDesc() {
-    products.sort( (a,b) => b.price - a.price );
-    setProducts(products.slice()); // uuendab HTML-i (useState() osa)
-            // .slice()  ---> products kutsub välja setProducts, mis uuendab products
-  }
-
   return (
   <div>
-    <button onClick={() => onSortAZ()}>Sorteeri A-Z</button>
-    <button onClick={() => onSortZA()}>Sorteeri Z-A</button>
-    <button onClick={() => onSortPriceAsc()}>Sorteeri hind kasvavalt</button>
-    <button onClick={() => onSortPriceDesc()}>Sorteeri hind kahanevalt</button><br />
+    <SortButtons homeProducts={products} onSetProducts={setProducts} />
     { isLoading && <div className="spinner-wrapper">
       <div className="lds-ripple"><div></div><div></div></div>
     </div>}

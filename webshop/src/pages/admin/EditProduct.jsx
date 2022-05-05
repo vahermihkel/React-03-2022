@@ -67,7 +67,7 @@ function EditProduct() {
   <div>
     { product && <div>
       <label>ID</label> <br />
-      <input ref={idRef} defaultValue={product.id} type="number" required /> <br />
+      <input ref={idRef}  defaultValue={product.id} type="number" required /> <br />
       <label>Nimi</label> <br />
       <input ref={nameRef} defaultValue={product.name} type="text" required /> <br />
       <label>Hind</label> <br />
