@@ -129,6 +129,7 @@ export default Cart;
   NELJAPÄEV: 05.05
 * PROPS
 * Kaardi peal näitan kõiki poode ( Leaflet )
+-----
 
   TEISIPÄEV:  10.05
 * Navbaris iga klikiga ka ostukorvi summa kokkuarvutamine (Subject)
@@ -140,7 +141,7 @@ export default Cart;
 
   TEISIPÄEV  17.05
 * Pildid Firebase-i    Firebase Storage (URL)
-* NotFound, Karusell-galerii
+* NotFound,
 * Kogused?
 
   24.05    1.5h

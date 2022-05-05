@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
+import CarouselGallery from "../components/CarouselGallery";
 import SortButtons from "../components/SortButtons";
 
 function Home() {
@@ -52,6 +53,7 @@ function Home() {
 
   return (
   <div>
+    <CarouselGallery />
     <SortButtons homeProducts={products} onSetProducts={setProducts} />
     { isLoading && <div className="spinner-wrapper">
       <div className="lds-ripple"><div></div><div></div></div>

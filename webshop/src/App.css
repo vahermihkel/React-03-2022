@@ -57,3 +57,13 @@
 .map {
   height: 300px;
 }
+
+.slick-slider {
+  margin-bottom: 100px;
+  width: 50%;
+  margin-left: 20%;
+}
+
+.slick-prev:before, .slick-next:before {
+  color: black !important;
+}
