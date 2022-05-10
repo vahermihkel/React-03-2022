@@ -1,55 +1,24 @@
 import { initializeApp } from "firebase/app";
 import { getStorage, ref, uploadBytes, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { useRef } from "react";
 
 function FileUpload() {
-  const fileRef = useRef();
+  let minuFail;
   
-// Set the configuration for your app
-// TODO: Replace with your app's config object
-const firebaseConfig = {
-  apiKey: 'AIzaSyBH9ePbaGz6wwIV6FS2AK4O5NlcJ6g05i8',
-  authDomain: 'react0322.web.app',
-  databaseURL: 'https://react-03-22-default-rtdb.europe-west1.firebasedatabase.app/',
-  storageBucket: 'gs://react-03-22.appspot.com'
-};
-const firebaseApp = initializeApp(firebaseConfig);
-
-// Get a reference to the storage service, which is used to create references in your storage bucket
-const storage = getStorage(firebaseApp);
-
-// Points to the root reference
-const storageRef = ref(storage);
-
-// Points to 'images'
-const imagesRef = ref(storageRef, 'images');
-
-// Points to 'images/space.jpg'
-// Note that you can use variables to create child values
-const fileName = 'space.jpg';
-const spaceRef = ref(imagesRef, fileName);
-
-// File path is 'images/space.jpg'
-const path = spaceRef.fullPath;
-
-// File name is 'space.jpg'
-const name = spaceRef.name;
-
-// Points to 'images'
-const imagesRefAgain = spaceRef.parent;
-
-let uploadedPictureUrl = "";
-
-let metadata = {
-    contentType: 'image/jpeg'
+  // Set the configuration for your app
+  // TODO: Replace with your app's config object
+  const firebaseConfig = {
+    apiKey: 'AIzaSyBMXLt-J5iYfSnoScMk3jUVLJyAMAve50E',
+    authDomain: 'react0322.web.app',
+    databaseURL: 'https://react-03-22-default-rtdb.europe-west1.firebasedatabase.app/',
+    storageBucket: 'gs://react-03-22.appspot.com'
   };
-
-// Upload file and metadata to the object 'images/mountains.jpg'
-
-
-  function uploadPicture2(file) {
-    uploadBytes(storageRef, file, metadata);
-  }
+  const firebaseApp = initializeApp(firebaseConfig);
+  const storage = getStorage(firebaseApp);
+  const storageRef = ref(storage);
+  let uploadedPictureUrl = "";
+  let metadata = {
+      contentType: 'image/png'
+    };
 
   function uploadPicture(file) {
     const storageRef = ref(storage, 'images/' + file.name);
@@ -97,10 +66,14 @@ let metadata = {
         );
   }
 
+  function handleFileInput(event) {
+    minuFail = event.target.files[0];
+  }
+
 
   return (<div>
-    <input ref={fileRef} type="file" />
-    <button onClick={() => uploadPicture(fileRef.current.value)}>Lae üles</button>
+    <input onChange={(e) => handleFileInput(e)} type="file" />
+    <button onClick={() => uploadPicture(minuFail)}>Lae üles</button>
   </div>)
 }
 
