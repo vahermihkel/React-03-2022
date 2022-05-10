@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import FileUpload from "../../components/FileUpload";
+import FileUpload from "../../components/FileUpload"; // 1. import FileUpload uus komponent
 
 function AddProduct() {
   const idRef = useRef(); // HTMLi inputi külge
@@ -14,7 +14,7 @@ function AddProduct() {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [idNotUnique, setIdNotUnique] = useState(false);
-  const [pictureUrl, setPictureUrl] = useState(null);
+  const [pictureUrl, setPictureUrl] = useState(null); // 2. lisasin uue useState-i
 
   useEffect(() => {
     fetch(dbUrl + "/products.json").then(response => response.json())
@@ -46,13 +46,13 @@ function AddProduct() {
       "category": categoryRef.current.value,
       "description": descriptionRef.current.value,
       "id": Number(idRef.current.value),
-      "imgSrc": pictureUrl,
+      "imgSrc": pictureUrl,  // 3. ref-i asemel pictureUrl
       "isActive": activeRef.current.value,
       "name": nameRef.current.value,
       "price": Number(priceRef.current.value)
     }
 
-    fetch(dbUrl + "/products.json",{
+    fetch(dbUrl + "/products.json",{   // 4. products.json liitsin juurde
       "method": "POST",
       "body": JSON.stringify(newProduct),  // teeb õigesti JSON kuju stringiks
       "headers": {"Content-Type": "application/json"} 
@@ -82,7 +82,10 @@ function AddProduct() {
     <label>Hind</label> <br />
     <input ref={priceRef} type="number" required /> <br />
     <label>Pilt</label> <br />
-    < FileUpload onSendPictureUrl={setPictureUrl} />
+    < FileUpload onSendPictureUrl={setPictureUrl} /> 
+    {/* 5. Võtsin komponendi HTML-s kasutusele ja võtmega pannakse käima minu useState
+               parempoolne funktsioon */}
+               
     {/* <input ref={imgSrcRef} type="text" required /> <br /> */}
     <label>Kategooria</label> <br />
     {/* <input ref={categoryRef} type="text" required /> <br /> */}
