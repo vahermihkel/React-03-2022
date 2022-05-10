@@ -14,6 +14,7 @@ function AddProduct() {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [idNotUnique, setIdNotUnique] = useState(false);
+  const [pictureUrl, setPictureUrl] = useState(null);
 
   useEffect(() => {
     fetch(dbUrl + "/products.json").then(response => response.json())
@@ -45,13 +46,13 @@ function AddProduct() {
       "category": categoryRef.current.value,
       "description": descriptionRef.current.value,
       "id": Number(idRef.current.value),
-      "imgSrc": imgSrcRef.current.value,
+      "imgSrc": pictureUrl,
       "isActive": activeRef.current.value,
       "name": nameRef.current.value,
       "price": Number(priceRef.current.value)
     }
 
-    fetch(dbUrl,{
+    fetch(dbUrl + "/products.json",{
       "method": "POST",
       "body": JSON.stringify(newProduct),  // teeb õigesti JSON kuju stringiks
       "headers": {"Content-Type": "application/json"} 
@@ -81,7 +82,7 @@ function AddProduct() {
     <label>Hind</label> <br />
     <input ref={priceRef} type="number" required /> <br />
     <label>Pilt</label> <br />
-    < FileUpload />
+    < FileUpload onSendPictureUrl={setPictureUrl} />
     {/* <input ref={imgSrcRef} type="text" required /> <br /> */}
     <label>Kategooria</label> <br />
     {/* <input ref={categoryRef} type="text" required /> <br /> */}

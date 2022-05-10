@@ -1,8 +1,8 @@
 import { initializeApp } from "firebase/app";
-import { getStorage, ref, uploadBytes, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
-function FileUpload() {
-  let minuFail;
+function FileUpload(props) {
+  let fileToUpload;
   
   // Set the configuration for your app
   // TODO: Replace with your app's config object
@@ -14,8 +14,6 @@ function FileUpload() {
   };
   const firebaseApp = initializeApp(firebaseConfig);
   const storage = getStorage(firebaseApp);
-  const storageRef = ref(storage);
-  let uploadedPictureUrl = "";
   let metadata = {
       contentType: 'image/png'
     };
@@ -60,20 +58,20 @@ function FileUpload() {
             // Upload completed successfully, now we can get the download URL
             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
               console.log('File available at', downloadURL);
-              uploadedPictureUrl = downloadURL;
+              props.onSendPictureUrl(downloadURL);
             });
           }
         );
   }
 
   function handleFileInput(event) {
-    minuFail = event.target.files[0];
+    fileToUpload = event.target.files[0];
   }
 
 
   return (<div>
     <input onChange={(e) => handleFileInput(e)} type="file" />
-    <button onClick={() => uploadPicture(minuFail)}>Lae üles</button>
+    <button onClick={() => uploadPicture(fileToUpload)}>Lae üles</button>
   </div>)
 }
 
