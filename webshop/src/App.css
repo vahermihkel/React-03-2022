@@ -67,3 +67,8 @@
 .slick-prev:before, .slick-next:before {
   color: black !important;
 }
+
+.not-found-content {
+  margin-top: 100px;
+  text-align: center;
+}

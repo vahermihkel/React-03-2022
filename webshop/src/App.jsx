@@ -10,6 +10,7 @@ import EditProduct from './pages/admin/EditProduct';
 import ViewProducts from './pages/admin/ViewProducts';
 import Categories from './pages/admin/Categories';
 import Shops from './pages/Shops';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="admin/muuda/:id" exact element={ <EditProduct /> } />
           <Route path="admin/tooted" exact element={ <ViewProducts /> } />
           <Route path="admin/kategooriad" exact element={ <Categories /> } />
+          <Route path="*" exact element={ <NotFound /> } />
         </Routes>
       </div>
   );

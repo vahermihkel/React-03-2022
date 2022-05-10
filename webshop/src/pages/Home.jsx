@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import CarouselGallery from "../components/CarouselGallery";
 import SortButtons from "../components/SortButtons";
+import { cartSumService } from "../store/cartSumService";
 
 function Home() {
   const [products, setProducts] = useState([]);
@@ -42,13 +43,21 @@ function Home() {
       // cartProducts[index].quantity = cartProducts[index].quantity / 2 + 1;
     } else {
       //                        {product:    {id: 33}, quantity: 1}
-      cartProducts.push({product: clickedProduct, quantity: 1});
+      const parcelMachineIndex = cartProducts.findIndex(element => element.product.id === "11122333");
+      if (parcelMachineIndex >= 0) {
+        cartProducts.splice(parcelMachineIndex, 0, {product: clickedProduct, quantity: 1});
+      } else {
+        cartProducts.push({product: clickedProduct, quantity: 1});
+      }
     }
     sessionStorage.setItem("products", JSON.stringify(cartProducts));
     toast.success("Edukalt lisatud ostukorvi!", {
       position: "bottom-right",
       theme: "dark"
     });
+    let totalSum = 0;
+    cartProducts.forEach(element => totalSum += element.product.price * element.quantity);
+    cartSumService.sendCartSum(totalSum);
   }
 
   return (

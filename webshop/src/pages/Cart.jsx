@@ -2,6 +2,7 @@ import { useState } from "react";
 import OmnivaMachines from "../components/OmnivaMachines";
 import Payment from "../components/Payment";
 import cartStyles from "./css/Cart.module.css";
+import { cartSumService } from "../store/cartSumService";
 
 function Cart() {
   const [cartProducts, setCartProducts] = useState(getCartFromSS());
@@ -52,6 +53,7 @@ function Cart() {
   function totalPrice() {
     let totalSum = 0;
     cartProducts.forEach(element => totalSum += element.product.price * element.quantity);
+    cartSumService.sendCartSum(totalSum);
     return totalSum;
   }
 
@@ -90,7 +92,7 @@ function Cart() {
         onSendCartProducts={setCartProducts} />
     <br />
 
-    <div>KOKKU: {totalPrice()} €</div> 
+    <div>KOKKU: {totalPrice().toFixed(2)} €</div> 
     <Payment totalSum={totalPrice()} />
     
   </div>)
@@ -132,17 +134,19 @@ export default Cart;
 -----
 
   TEISIPÄEV:  10.05
-* Navbaris iga klikiga ka ostukorvi summa kokkuarvutamine (Subject)
-* Emailide saatmine Gmailile ja muule
+* v Navbaris iga klikiga ka ostukorvi summa kokkuarvutamine (Subject)
+* v Pakiautomaat ostukorvis alati viimane
+* v Emailide saatmine Gmailile ja muule - smtp.js
+* v NotFound
+* Pildid Firebase-i    Firebase Storage (URL)
 
   NELJAPÄEV 12.05
 * Sisselogimine / Registeerumine --- Admin
         URL peitmine
 
   TEISIPÄEV  17.05
-* Pildid Firebase-i    Firebase Storage (URL)
-* NotFound,
 * Kogused?
+* Avalehe kujundus
 
   24.05    1.5h
   31.05    1.5h

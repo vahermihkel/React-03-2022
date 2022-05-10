@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import FileUpload from "../../components/FileUpload";
 
 function AddProduct() {
   const idRef = useRef(); // HTMLi inputi külge
@@ -80,7 +81,8 @@ function AddProduct() {
     <label>Hind</label> <br />
     <input ref={priceRef} type="number" required /> <br />
     <label>Pilt</label> <br />
-    <input ref={imgSrcRef} type="text" required /> <br />
+    < FileUpload />
+    {/* <input ref={imgSrcRef} type="text" required /> <br /> */}
     <label>Kategooria</label> <br />
     {/* <input ref={categoryRef} type="text" required /> <br /> */}
     <select ref={categoryRef}>
