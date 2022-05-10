@@ -40,7 +40,7 @@ const imagesRefAgain = spaceRef.parent;
 
 let uploadedPictureUrl = "";
 
-let  metadata = {
+let metadata = {
     contentType: 'image/jpeg'
   };
 
@@ -48,12 +48,12 @@ let  metadata = {
 
 
   function uploadPicture2(file) {
-    uploadBytes(storageRef, file, this.metadata);
+    uploadBytes(storageRef, file, metadata);
   }
 
   function uploadPicture(file) {
     const storageRef = ref(storage, 'images/' + file.name);
-    const uploadTask = uploadBytesResumable(storageRef, file, this.metadata);
+    const uploadTask = uploadBytesResumable(storageRef, file, metadata);
     // Listen for state changes, errors, and completion of the upload.
         uploadTask.on('state_changed',
           (snapshot) => {
@@ -91,7 +91,7 @@ let  metadata = {
             // Upload completed successfully, now we can get the download URL
             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
               console.log('File available at', downloadURL);
-              this.uploadedPictureUrl = downloadURL;
+              uploadedPictureUrl = downloadURL;
             });
           }
         );
