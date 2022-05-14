@@ -1,6 +1,6 @@
 import { useState } from "react";
-import OmnivaMachines from "../components/OmnivaMachines";
-import Payment from "../components/Payment";
+import OmnivaMachines from "../components/cart/OmnivaMachines";
+import Payment from "../components/cart/Payment";
 import cartStyles from "./css/Cart.module.css";
 import { cartSumService } from "../store/cartSumService";
 
@@ -138,7 +138,7 @@ export default Cart;
 * v Pakiautomaat ostukorvis alati viimane
 * v Emailide saatmine Gmailile ja muule - smtp.js
 * v NotFound
-* Pildid Firebase-i    Firebase Storage (URL)
+* v Pildid Firebase-i    Firebase Storage (URL)
 
   NELJAPÄEV 12.05
 * Sisselogimine / Registeerumine --- Admin

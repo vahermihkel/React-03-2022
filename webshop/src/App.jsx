@@ -11,6 +11,8 @@ import ViewProducts from './pages/admin/ViewProducts';
 import Categories from './pages/admin/Categories';
 import Shops from './pages/Shops';
 import NotFound from './pages/NotFound';
+import SignUp from './pages/SignUp';
+import SignIn from './pages/SignIn';
 
 function App() {
   return (
@@ -21,11 +23,13 @@ function App() {
           <Route path="poed" exact element={ <Shops /> } />
           <Route path="ostukorv" exact element={ <Cart /> } />
           <Route path="toode/:id" exact element={ <SingleProduct /> } />
+          <Route path="logi-sisse" exact element={ <SignIn /> } />
           <Route path="admin" exact element={ <AdminHome /> } />
           <Route path="admin/lisa" exact element={ <AddProduct /> } />
           <Route path="admin/muuda/:id" exact element={ <EditProduct /> } />
           <Route path="admin/tooted" exact element={ <ViewProducts /> } />
           <Route path="admin/kategooriad" exact element={ <Categories /> } />
+          <Route path="admin/lisa-kasutaja" exact element={ <SignUp /> } />
           <Route path="*" exact element={ <NotFound /> } />
         </Routes>
       </div>

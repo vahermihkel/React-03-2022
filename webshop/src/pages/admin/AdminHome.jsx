@@ -12,6 +12,9 @@ function AdminHome() {
     <Link to="/admin/kategooriad">
       <button className="btn btn-secondary">HALDA KATEGOORIAID</button>
     </Link>
+    <Link to="/admin/lisa-kasutaja">
+      <button className="btn btn-secondary">LISA KASUTAJA</button>
+    </Link>
   </div>)
 }
 

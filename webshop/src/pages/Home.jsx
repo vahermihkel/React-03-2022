@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
-import CarouselGallery from "../components/CarouselGallery";
-import SortButtons from "../components/SortButtons";
+import CarouselGallery from "../components/home/CarouselGallery";
+import SortButtons from "../components/home/SortButtons";
 import { cartSumService } from "../store/cartSumService";
 
 function Home() {
