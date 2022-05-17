@@ -15,7 +15,7 @@ export const AuthContextProvider = (props) => {
       const userData = JSON.parse(sessionStorage.getItem("userData"));
       // teisendan sessionStorage-st saadud kuupäevaks
       // sest .getTime() on võimalik vaid tüübist Date
-      if (new Date(userData.expires).getTime() < (new Date()).getTime()) {
+      if (new Date(userData.expires).getTime() > (new Date().getTime())) {
         return true;
       } else {
         return false;

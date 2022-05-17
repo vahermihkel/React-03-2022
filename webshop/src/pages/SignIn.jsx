@@ -1,9 +1,13 @@
-import { useRef, useState } from "react";
+import { useContext, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import AuthContext from "../store/AuthContext"; 
 
 function SignIn() {
   const firebaseUrl = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBMXLt-J5iYfSnoScMk3jUVLJyAMAve50E";
   const emailRef = useRef();
   const passwordRef = useRef();
+  const authCtx = useContext(AuthContext);
+  const navigate = useNavigate();
 
   function onSignIn() {
     const data = {
@@ -27,6 +31,8 @@ function SignIn() {
             expires: expirationDate
           }
           sessionStorage.setItem("userData", JSON.stringify(userData));
+          authCtx.onLogin();
+          navigate("/admin");
         }
       });
   }

@@ -1,4 +1,5 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
+import { ToastContainer, toast } from 'react-toastify';
 
 function SignUp() {
   const firebaseUrl = "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBMXLt-J5iYfSnoScMk3jUVLJyAMAve50E";
@@ -25,12 +26,18 @@ function SignUp() {
           token: body.idToken,
           expires: expirationDate
         }
-        sessionStorage.setItem("userData", JSON.stringify(userData))
+        sessionStorage.setItem("userData", JSON.stringify(userData));
+        toast.success("Edukalt lisatud uus kasutaja!", {
+          position: "bottom-right",
+          theme: "dark"
+        });
       });
   }
 
+
   return (
     <div>
+      <ToastContainer />
       <label>Email</label> <br />
       <input ref={emailRef} type="text" /> <br />
       <label>Parool</label> <br />

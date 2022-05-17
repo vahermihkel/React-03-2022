@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
 import NavigationBar from './components/NavigationBar';
 import Home from './pages/Home';
@@ -13,8 +13,12 @@ import Shops from './pages/Shops';
 import NotFound from './pages/NotFound';
 import SignUp from './pages/SignUp';
 import SignIn from './pages/SignIn';
+import { useContext } from 'react';
+import AuthContext from './store/AuthContext';
 
 function App() {
+  const authCtx = useContext(AuthContext);
+
   return (
       <div>
         <NavigationBar />
@@ -24,12 +28,17 @@ function App() {
           <Route path="ostukorv" exact element={ <Cart /> } />
           <Route path="toode/:id" exact element={ <SingleProduct /> } />
           <Route path="logi-sisse" exact element={ <SignIn /> } />
-          <Route path="admin" exact element={ <AdminHome /> } />
-          <Route path="admin/lisa" exact element={ <AddProduct /> } />
-          <Route path="admin/muuda/:id" exact element={ <EditProduct /> } />
-          <Route path="admin/tooted" exact element={ <ViewProducts /> } />
-          <Route path="admin/kategooriad" exact element={ <Categories /> } />
-          <Route path="admin/lisa-kasutaja" exact element={ <SignUp /> } />
+         { authCtx.loggedIn && 
+          <>
+            <Route path="admin" exact element={ <AdminHome /> } />
+            <Route path="admin/lisa" exact element={ <AddProduct /> } />
+            <Route path="admin/muuda/:id" exact element={ <EditProduct /> } />
+            <Route path="admin/tooted" exact element={ <ViewProducts /> } />
+            <Route path="admin/kategooriad" exact element={ <Categories /> } />
+            <Route path="admin/lisa-kasutaja" exact element={ <SignUp /> } />
+          </>
+         }
+         { !authCtx.loggedIn && <Route path="admin/*" exact element={ <Navigate to="/logi-sisse" /> } />}
           <Route path="*" exact element={ <NotFound /> } />
         </Routes>
       </div>
@@ -37,3 +46,16 @@ function App() {
 }
 
 export default App;
+
+// if (authCtx.loggedIn) {
+//   // näita admin asju
+// } else {
+//   // näta signIn-mist
+// }
+
+// if (authCtx.loggedIn) {
+//   // näita admin asju
+// }
+// if (!authCtx.loggedIn) {
+//    // näta signIn-mist
+// }

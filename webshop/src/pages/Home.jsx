@@ -67,7 +67,7 @@ function Home() {
     { isLoading && <div className="spinner-wrapper">
       <div className="lds-ripple"><div></div><div></div></div>
     </div>}
-    {products.map(element => 
+    {products.filter(element => element.isActive).map(element => 
       <div>
         <img className="product-img" src={element.imgSrc} alt="" />
         <div>{element.name}</div>

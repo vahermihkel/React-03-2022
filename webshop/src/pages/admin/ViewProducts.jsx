@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 function ViewProducts() {
@@ -43,20 +44,37 @@ function ViewProducts() {
   return (
   <div>
     <input ref={searchRef} onChange={() => searchProducts()} type="text" />
-    {products.map(element => 
-      <div>
-        <img src={element.imgSrc} alt="" />
-        <div>{element.name}</div>
-        <div>{element.id}</div>
-        <div>{element.price} €</div>
-        <div>{element.description}</div>
-        <div>{element.category}</div>
-        <div>{element.isActive}</div>
-        <div>{element.stock}</div>
-        <Link to={"/admin/muuda/" + element.id}>
-          <button>MUUDA</button>
-        </Link>
-      </div>)}
+    <Table>
+      <thead>
+        <tr>
+          <th>Pilt</th>
+          <th>Nimi</th>
+          <th>ID</th>
+          <th>Hind</th>
+          <th>Kirjeldus</th>
+          <th>Kategooria</th>
+          <th>Aktiivne</th>
+          <th>Kogus</th>
+          <th>Tegevused</th>
+        </tr>
+      </thead>
+      <tbody>
+        {products.map(element => 
+          <tr>
+            <td><img className="admin-picture" src={element.imgSrc} alt="" /></td>
+            <td>{element.name}</td>
+            <td>{element.id}</td>
+            <td>{element.price} €</td>
+            <td>{element.description}</td>
+            <td>{element.category}</td>
+            <td>{element.isActive}</td>
+            <td>{element.stock}</td>
+            <Link to={"/admin/muuda/" + element.id}>
+              <button>MUUDA</button>
+            </Link>
+          </tr>)}
+      </tbody>
+    </Table>
   </div>)
 }
 

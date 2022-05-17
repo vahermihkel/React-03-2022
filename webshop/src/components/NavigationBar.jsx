@@ -35,6 +35,7 @@ function NavigationBar() {
 
   function logout() {
     sessionStorage.removeItem("userData");
+    authCtx.onLogout();
   }
 
   return (
@@ -42,9 +43,9 @@ function NavigationBar() {
       <Container>
       <Navbar.Brand as={Link} to="/"> <img src="/webshio.png" alt="" /> </Navbar.Brand>
       <Nav className="me-auto">
-       { authCtx.loggedIn && <Nav.Link as={Link} to="/logi-sisse">Logi sisse</Nav.Link>}
-       { authCtx.loggedIn && <Nav.Link onClick={() => logout()}>Logi välja</Nav.Link>}
-        <Nav.Link as={Link} to="/admin">{t('nav-admin-button')}</Nav.Link>
+       { authCtx.loggedIn === false && <Nav.Link as={Link} to="/logi-sisse">Logi sisse</Nav.Link>}
+       { authCtx.loggedIn === true && <Nav.Link onClick={() => logout()}>Logi välja</Nav.Link>}
+       { authCtx.loggedIn === true && <Nav.Link as={Link} to="/admin">{t('nav-admin-button')}</Nav.Link>}
         <Nav.Link as={Link} to="/poed">Poed</Nav.Link>
         <Nav.Link as={Link} to="/ostukorv">{t('nav-cart-button')}</Nav.Link>
         <div>Kokku ostukorvis: {cartSum.toFixed(2)} €</div>

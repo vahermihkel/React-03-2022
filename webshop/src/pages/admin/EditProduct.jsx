@@ -41,7 +41,7 @@ function EditProduct() {
       "description": descriptionRef.current.value,
       "id": Number(idRef.current.value),
       "imgSrc": imgSrcRef.current.value,
-      "isActive": activeRef.current.value,
+      "isActive": activeRef.current.checked,
       "name": nameRef.current.value,
       "price": Number(priceRef.current.value)
     }

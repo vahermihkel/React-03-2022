@@ -148,6 +148,11 @@ export default Cart;
 * Kogused?
 * Avalehe kujundus
 
-  24.05    1.5h
-  31.05    1.5h
+EMAILILE: 
+1.Proovitöö (2020 aasta Nortal talveülikooli kandideerimiseks proovitöö)
+2.Print-screenina andmebaasi saata
+
+  24.05    1.5h   arutame proovitööd (lahendame) - veebipoe kujundus
+  31.05    1.5h   iseseisvate projektide vahepunkt - veebipoe kujundus, ...
+  07.06    45 min viimane kord - arutame iseseisvaid projekte
  */

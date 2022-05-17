@@ -5,7 +5,7 @@ function AddProduct() {
   const idRef = useRef(); // HTMLi inputi külge
   const nameRef = useRef();
   const priceRef = useRef();
-  const imgSrcRef = useRef();
+  // const imgSrcRef = useRef();
   const categoryRef = useRef();
   const activeRef = useRef();
   const descriptionRef = useRef();
@@ -47,7 +47,7 @@ function AddProduct() {
       "description": descriptionRef.current.value,
       "id": Number(idRef.current.value),
       "imgSrc": pictureUrl,  // 3. ref-i asemel pictureUrl
-      "isActive": activeRef.current.value,
+      "isActive": activeRef.current.checked,
       "name": nameRef.current.value,
       "price": Number(priceRef.current.value)
     }
