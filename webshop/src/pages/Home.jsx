@@ -37,6 +37,13 @@ function Home() {
     if (index >= 0) {   // index !== -1
       //[{product:{id: 11}, quantity: 3},{product:{id: 22}, quantity: 1}][1] --->
       //{product:{id: 22}, quantity: 1}.quantity   --->  2  ---> {product:{id: 22}, quantity: 2}
+      if (cartProducts[index].product.stock <= cartProducts[index].quantity) {
+        toast.error("Vabandame, antud toodet laos rohkem pole!", {
+          position: "bottom-right",
+          theme: "dark"
+        });
+        return;
+      }
       cartProducts[index].quantity++;
       //cartProducts[index].quantity = cartProducts[index].quantity + 1;
       // cartProducts[index].quantity += 2;

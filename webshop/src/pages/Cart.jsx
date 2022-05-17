@@ -33,6 +33,13 @@ function Cart() {
     if (clickedProduct.product.id !== "11122333") {
       const index = cartProducts.findIndex(
         element => element.product.id === clickedProduct.product.id);
+      // if (cartProducts[index].product.stock <= cartProducts[index].quantity) {
+      //   toast.error("Vabandame, antud toodet laos rohkem pole!", {
+      //     position: "bottom-right",
+      //     theme: "dark"
+      //   });
+      //   return;
+      // }
       cartProducts[index].quantity++;
       setCartProducts(cartProducts.slice());
       sessionStorage.setItem("products", JSON.stringify(cartProducts));

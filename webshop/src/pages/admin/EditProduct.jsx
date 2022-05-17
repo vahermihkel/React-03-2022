@@ -43,7 +43,8 @@ function EditProduct() {
       "imgSrc": imgSrcRef.current.value,
       "isActive": activeRef.current.checked,
       "name": nameRef.current.value,
-      "price": Number(priceRef.current.value)
+      "price": Number(priceRef.current.value),
+      "stock": Number(stockRef.current.value),
     }
 
     //const index = products.indexOf(product);

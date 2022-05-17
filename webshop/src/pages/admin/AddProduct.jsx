@@ -49,7 +49,7 @@ function AddProduct() {
       "imgSrc": pictureUrl,  // 3. ref-i asemel pictureUrl
       "isActive": activeRef.current.checked,
       "name": nameRef.current.value,
-      "price": Number(priceRef.current.value)
+      "price": Number(priceRef.current.value),
     }
 
     fetch(dbUrl + "/products.json",{   // 4. products.json liitsin juurde
