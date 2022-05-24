@@ -15,6 +15,9 @@ function AdminHome() {
     <Link to="/admin/lisa-kasutaja">
       <button className="btn btn-secondary">LISA KASUTAJA</button>
     </Link>
+    <Link to="/admin/halda-poode">
+      <button className="btn btn-secondary">HALDA POODE</button>
+    </Link>
   </div>)
 }
 

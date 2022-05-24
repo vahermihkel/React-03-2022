@@ -160,6 +160,8 @@ EMAILILE:
 2.Print-screenina andmebaasi saata
 
   24.05    1.5h   arutame proovitööd (lahendame) - veebipoe kujundus
+          13.00-14.30 
+
   31.05    1.5h   iseseisvate projektide vahepunkt - veebipoe kujundus, ...
   07.06    45 min viimane kord - arutame iseseisvaid projekte
  */

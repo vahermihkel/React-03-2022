@@ -1,13 +1,19 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import CarouselGallery from "../components/home/CarouselGallery";
 import SortButtons from "../components/home/SortButtons";
+import AuthContext from "../store/AuthContext";
 import { cartSumService } from "../store/cartSumService";
+import "./css/Home.css";
 
 function Home() {
   const [products, setProducts] = useState([]);
+  const [originalProducts, setOriginalProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState('all');
   const [isLoading, setIsLoading] = useState(false);
   const url = "https://react-03-22-default-rtdb.europe-west1.firebasedatabase.app/products.json";
+  const authCtx = useContext(AuthContext);
 
   useEffect(() => {
     setIsLoading(true);
@@ -18,6 +24,11 @@ function Home() {
         productsFromDb.push(responseBody[key]);
       }
       setProducts(productsFromDb);
+      // [{i: "", n: "", c: "drones"}, {i: "", n: "", c: "camera"}]
+      // ["drones", "camera"]
+      setOriginalProducts(productsFromDb);
+      const categoriesFromProducts = [...new Set(productsFromDb.map(element => element.category))];
+      setCategories(categoriesFromProducts);
       setIsLoading(false);
     })
   },[]);
@@ -67,15 +78,34 @@ function Home() {
     cartSumService.sendCartSum(totalSum);
   }
 
+  const onSelectCategory = (category) => {
+    if (category === 'all') {
+      setProducts(originalProducts);
+      setSelectedCategory('all')
+    } else {
+      setProducts(originalProducts.filter(element => element.category === category));
+      setSelectedCategory(category);
+    }
+  }
+
   return (
   <div>
     <CarouselGallery />
+    <div className={selectedCategory === 'all' && 'bold'} onClick={() => onSelectCategory('all')}>Kõik kategooriad</div>
+    { categories.map(element => //['drones', 'cameras']       'drones'
+      <div 
+        onClick={() => onSelectCategory(element)} 
+        className={selectedCategory === element && 'bold'}>
+          {element}
+      </div>) }
     <SortButtons homeProducts={products} onSetProducts={setProducts} />
     { isLoading && <div className="spinner-wrapper">
       <div className="lds-ripple"><div></div><div></div></div>
     </div>}
-    {products.filter(element => element.isActive).map(element => 
-      <div>
+    {products.filter(element => element.isActive || authCtx.loggedIn).map(element => 
+      <div className={`product 
+            ${element.isActive && authCtx.loggedIn && 'active'} 
+            ${!element.isActive && authCtx.loggedIn && 'inactive'}`}>
         <img className="product-img" src={element.imgSrc} alt="" />
         <div>{element.name}</div>
         <div>{Number(element.price).toFixed(2)}</div>
@@ -84,5 +114,17 @@ function Home() {
       <ToastContainer />
   </div>)
 }
+
+// filterda kõik kes on aktiivsed
+//   sisselogitud     loggedIn
+// (element => true && false)  ---> false
+// (element => true && true)  ---> true
+// (element => false && true)  ---> false
+// (element => false && false)  ---> false
+
+// (element => true || false)  ---> true
+// (element => true || true)  ---> true
+// (element => false || false)  ---> false
+// (element => false || true)  ---> true
 
 export default Home;

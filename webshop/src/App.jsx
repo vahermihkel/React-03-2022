@@ -15,6 +15,7 @@ import SignUp from './pages/SignUp';
 import SignIn from './pages/SignIn';
 import { useContext } from 'react';
 import AuthContext from './store/AuthContext';
+import ShopsSettings from './pages/admin/ShopsSettings';
 
 function App() {
   const authCtx = useContext(AuthContext);
@@ -36,6 +37,7 @@ function App() {
             <Route path="admin/tooted" exact element={ <ViewProducts /> } />
             <Route path="admin/kategooriad" exact element={ <Categories /> } />
             <Route path="admin/lisa-kasutaja" exact element={ <SignUp /> } />
+            <Route path="admin/halda-poode" exact element={ <ShopsSettings /> } />
           </>
          }
          { !authCtx.loggedIn && <Route path="admin/*" exact element={ <Navigate to="/logi-sisse" /> } />}
